@@ -8,13 +8,30 @@ const request = {
       },
 }
 
+let actualJoke:string = "";
+const reportAcudits = [];
+
 function nextJoke() {
     const jokeText = document.getElementById("apiText");
     fetch(API_URL, request)
         .then((response) => response.json())
         .then((jokes) => {
             const tpl= jokes;
-            console.log(`"Següent acudit: ${tpl.joke}"`);
-            jokeText.textContent = tpl.joke;
+            actualJoke = tpl.joke;
+            jokeText.textContent = `"${actualJoke}"`;
     })
+}
+
+function jokeNote(note) {
+    const data = new Date();
+    let dataISO = data.toISOString();
+
+    const jokesNotes = {
+        joke: actualJoke,
+        score: note,
+        date: dataISO
+    }
+      
+    reportAcudits.push(jokesNotes);
+    console.log(reportAcudits);
 }
