@@ -12,43 +12,57 @@ const API_URL_JOKES_CHUCKNORRIS = 'https://api.chucknorris.io/jokes/random';
 
 const API_URL_ELTIEMPO = 'https://api.openweathermap.org/data/2.5/weather?lat=41.56667&lon=2.01667&appid=85cfa2c7d7ecfaba7ec9e19c3e057d04';
 
-let actualJoke:string = "";
+let actualJoke;
 const reportAcudits = [];
 let tempsActualTerrassa = "";
 
 function nextJoke() {
     let numRandom : number = Math. ceil(Math.random() * (100 - 1 + 1) + 1);
-    const jokeText = document.getElementById("apiText");
+    let numRandomFondo: number = Math.ceil(Math.random() * 4);
+    
+    const jokeText :  HTMLElement | null = document.getElementById("apiText");
+    const htmlFons :  HTMLElement | null = document.getElementById("fotoBackground");
 
-    if(numRandom % 2 === 0) {
-        const chuckJoke:string = randomChuckNorrisJoke();
-        jokeText.textContent = `"${chuckJoke}"`;
+    //numRandom canvi Acudit
+    if(numRandom % 2 === 0 && jokeText !== null && jokeText !== undefined) {
+        randomJoke(API_URL_JOKES_CHUCKNORRIS);
     }
     else {
-        const generalJoke : string = randomJoke();
-        jokeText.textContent = `"${generalJoke}"`;
+        randomJoke(API_URL);
+    }
+
+    //numRandom canvi fons
+    if(numRandomFondo === 1 && htmlFons !== null) {
+        htmlFons.style.backgroundImage =  'url("./img/blob lila.svg")';
+    }
+    else if(numRandomFondo === 2 && htmlFons !== null) {
+        htmlFons.style.backgroundImage =  'url("./img/blob coral.svg")';
+    }
+    else if(numRandomFondo === 3 && htmlFons !== null) {
+        htmlFons.style.backgroundImage =  'url("./img/blob azul.svg")';
+    }
+    else {
+        htmlFons.style.backgroundImage = 'url("./img/blob rosa.svg")';
     }
 }
 
-function randomJoke() {
-    fetch(API_URL, request)
-    .then((response) => response.json())
-    .then((jokes) => {
-        const tpl= jokes;
-        actualJoke = tpl.joke;
-    })
-    return actualJoke;
+async function randomJoke(url : string) {
+    const jokeText :  HTMLElement | null = document.getElementById("apiText");
+    
+    const response = await fetch(url, request);
+    const jsonJoke = await response.json();
+
+    if(url === API_URL) {
+        jokeText.textContent = `"${jsonJoke.joke}"`;
+        actualJoke = jsonJoke.joke; 
+    }
+    else {
+        jokeText.textContent = `"${jsonJoke.value}"`;
+        actualJoke = jsonJoke.value;
+    }
+    
 }
 
-function randomChuckNorrisJoke() {
-    fetch(API_URL_JOKES_CHUCKNORRIS)
-    .then((response) => response.json())
-    .then((joke) => {
-        const jcn= joke;
-        actualJoke = jcn.value;
-    })
-    return actualJoke;
-}
 
 function jokeNote(note) {
     const data = new Date();
@@ -71,10 +85,24 @@ function elTiempo() {
         .then((response) => response.json())
         .then((tempsTerrassa) => {
             elTempsTerrassa.push(tempsTerrassa);
- 
+
             tempsActualTerrassa = elTempsTerrassa[0].weather[0].main;
-            textElTempsActual.textContent = `elTemps| ${tempsActualTerrassa}`;
-              
-    })
+            let temperaturaActual = [Math.ceil(elTempsTerrassa[0].main.temp)];
+            let temperaturaActualTerrassa = temperaturaActual.join("-");
+            let nomImatgeTemps = "";
+
+            if(tempsActualTerrassa === "Clouds") {
+                nomImatgeTemps = "./img/sol y nuves.png";
+            }
+            else if(tempsActualTerrassa === "Sun") {
+                nomImatgeTemps = "./img/sol.png";
+            }
+            else {
+                nomImatgeTemps = "./img/lluvia.png";
+            }
+
+            textElTempsActual.innerHTML = `<img src="${nomImatgeTemps}">| ${temperaturaActualTerrassa[0]}${temperaturaActualTerrassa[1]}°C`; 
+
+        })
     
 }
