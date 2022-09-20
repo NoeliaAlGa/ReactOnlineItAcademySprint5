@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Preparat per Riure?</title>
+<link rel="stylesheet" type="text/css" href="./main.css">
+</head>
+
+<body id="fotoBackground" onload="elTiempo()">
+    <div id="clima" class="container">
+        <div id="time" class="row">
+            <div id="weather" class="col-12 p-3">
+                <p id="elTemps"></p>
+            </div>
+        </div>
+    </div>
+    <div id="boxJokes" class="container d-flex flex-column m-5">
+        <div id="info" class="row justify-content-center">
+            <div id="joke" class="col-6 text-center m-3">
+                <h3 class="title"><b>Preparat per riure?</b></h3>
+                <p id="apiText"></p>
+                <div class="">
+                    <button class="btn p-3" onclick="jokeNote(1)"><img class="emoji"
+                            src="./img/emoji no contento.png"></button>
+                    <button class="btn p-3" onclick="jokeNote(2)"><img class="emoji"
+                            src="./img/emoji contento.png"></button>
+                    <button class="btn p-3" onclick="jokeNote(3)"><img class="emoji"
+                            src="./img/emoji muy contento.png"></button>
+                </div>
+                <button id="btnNextJoke" class="btn btn-warning text-light align-bottom" 
+                        onclick="nextJoke()"><b>Següent acudit</b></button>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./first.js"></script>
+
+</html>
