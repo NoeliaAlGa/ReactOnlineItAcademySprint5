@@ -42,7 +42,7 @@ var request = {
     }
 };
 var API_URL_JOKES_CHUCKNORRIS = 'https://api.chucknorris.io/jokes/random';
-var API_URL_ELTIEMPO = 'https://api.openweathermap.org/data/2.5/weather?lat=41.56667&lon=2.01667&appid=85cfa2c7d7ecfaba7ec9e19c3e057d04';
+var API_URL_ELTIEMPO = 'https://api.openweathermap.org/data/2.5/weather?lat=41.56667&lon=2.01667&appid=85cfa2c7d7ecfaba7ec9e19c3e057d04&units=metric';
 var actualJoke;
 var reportAcudits = [];
 var tempsActualTerrassa = "";
@@ -117,8 +117,6 @@ function elTiempo() {
         .then(function (tempsTerrassa) {
         elTempsTerrassa.push(tempsTerrassa);
         tempsActualTerrassa = elTempsTerrassa[0].weather[0].main;
-        var temperaturaActual = [Math.ceil(elTempsTerrassa[0].main.temp)];
-        var temperaturaActualTerrassa = temperaturaActual.join("-");
         var nomImatgeTemps = "";
         if (tempsActualTerrassa === "Clouds") {
             nomImatgeTemps = "./img/sol y nuves.png";
@@ -129,6 +127,6 @@ function elTiempo() {
         else {
             nomImatgeTemps = "./img/lluvia.png";
         }
-        textElTempsActual.innerHTML = "<img src=\"".concat(nomImatgeTemps, "\">| ").concat(temperaturaActualTerrassa[0]).concat(temperaturaActualTerrassa[1], "\u00B0C");
+        textElTempsActual.innerHTML = "<img src=\"".concat(nomImatgeTemps, "\">| ").concat(elTempsTerrassa[0].main.temp, "\u00B0C");
     });
 }

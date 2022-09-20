@@ -10,7 +10,7 @@ const request = {
 
 const API_URL_JOKES_CHUCKNORRIS = 'https://api.chucknorris.io/jokes/random';
 
-const API_URL_ELTIEMPO = 'https://api.openweathermap.org/data/2.5/weather?lat=41.56667&lon=2.01667&appid=85cfa2c7d7ecfaba7ec9e19c3e057d04';
+const API_URL_ELTIEMPO = 'https://api.openweathermap.org/data/2.5/weather?lat=41.56667&lon=2.01667&appid=85cfa2c7d7ecfaba7ec9e19c3e057d04&units=metric';
 
 let actualJoke;
 const reportAcudits = [];
@@ -87,8 +87,6 @@ function elTiempo() {
             elTempsTerrassa.push(tempsTerrassa);
 
             tempsActualTerrassa = elTempsTerrassa[0].weather[0].main;
-            let temperaturaActual = [Math.ceil(elTempsTerrassa[0].main.temp)];
-            let temperaturaActualTerrassa = temperaturaActual.join("-");
             let nomImatgeTemps = "";
 
             if(tempsActualTerrassa === "Clouds") {
@@ -101,7 +99,7 @@ function elTiempo() {
                 nomImatgeTemps = "./img/lluvia.png";
             }
 
-            textElTempsActual.innerHTML = `<img src="${nomImatgeTemps}">| ${temperaturaActualTerrassa[0]}${temperaturaActualTerrassa[1]}°C`; 
+            textElTempsActual.innerHTML = `<img src="${nomImatgeTemps}">| ${elTempsTerrassa[0].main.temp}°C`; 
 
         })
     
