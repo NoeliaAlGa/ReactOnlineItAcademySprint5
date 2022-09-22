@@ -19,9 +19,12 @@ let tempsActualTerrassa = "";
 function nextJoke() {
     let numRandom : number = Math. ceil(Math.random() * (100 - 1 + 1) + 1);
     let numRandomFondo: number = Math.ceil(Math.random() * 4);
-    
-    const jokeText :  HTMLElement | null = document.getElementById("apiText");
-    const htmlFons :  HTMLElement | null = document.getElementById("fotoBackground");
+
+    const emojibtn : HTMLElement | null = document.getElementById("btnEmojis");
+    const jokeText : HTMLElement | null = document.getElementById("apiText");
+    const htmlFons : HTMLElement | null = document.getElementById("fotoBackground");
+
+    emojibtn.style.display = "inline";
 
     //numRandom canvi Acudit
     if(numRandom % 2 === 0 && jokeText !== null && jokeText !== undefined) {
@@ -79,7 +82,7 @@ function jokeNote(note) {
 }
 
 function elTiempo() {
-    const textElTempsActual = document.getElementById('elTemps');
+    const textElTempsActual : HTMLElement | null = document.getElementById('elTemps');
     const elTempsTerrassa : any = [];
     fetch(API_URL_ELTIEMPO)
         .then((response) => response.json())

@@ -49,8 +49,10 @@ var tempsActualTerrassa = "";
 function nextJoke() {
     var numRandom = Math.ceil(Math.random() * (100 - 1 + 1) + 1);
     var numRandomFondo = Math.ceil(Math.random() * 4);
+    var emojibtn = document.getElementById("btnEmojis");
     var jokeText = document.getElementById("apiText");
     var htmlFons = document.getElementById("fotoBackground");
+    emojibtn.style.display = "inline";
     //numRandom canvi Acudit
     if (numRandom % 2 === 0 && jokeText !== null && jokeText !== undefined) {
         randomJoke(API_URL_JOKES_CHUCKNORRIS);
